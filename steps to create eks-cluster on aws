@@ -1,0 +1,1120 @@
+Requirements
+
+$ choco install awscli
+
+$ choco install aws-iam-authenticator
+
+$ choco install kubernetes-cli
+
+
+
+
+**************************************************************************
+
+PS C:\Windows\system32> d:
+
+PS D:\> cd .\eks
+
+PS D:\eks> cd .\terraform-provider-aws
+
+PS D:\eks\terraform-provider-aws> ls
+
+
+    Directory: D:\eks\terraform-provider-aws
+
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+d----        02/06/2020     15:18            .github
+d----        02/06/2020     15:18            aws
+d----        02/06/2020     15:18            awsproviderlint
+d----        02/06/2020     15:18            docs
+d----        02/06/2020     15:18            examples
+d----        02/06/2020     15:18            infrastructure
+d----        02/06/2020     15:18            scripts
+d----        02/06/2020     15:18            vendor
+d----        02/06/2020     15:18            website
+-a---        02/06/2020     15:18        522 .gitignore
+-a---        02/06/2020     15:18          8 .go-version
+-a---        02/06/2020     15:18        606 .golangci.yml
+-a---        02/06/2020     15:18      31212 .hashibot.hcl
+-a---        02/06/2020     15:18       1416 .markdownlinkcheck.json
+-a---        02/06/2020     15:18        414 .markdownlint.yml
+-a---        02/06/2020     15:18        648 .travis.yml
+-a---        02/06/2020     15:18     535350 CHANGELOG.md
+-a---        02/06/2020     15:18       5464 GNUmakefile
+-a---        02/06/2020     15:18        898 go.mod
+-a---        02/06/2020     15:18      74431 go.sum
+-a---        02/06/2020     15:18      17098 LICENSE
+-a---        02/06/2020     15:18        230 main.go
+-a---        02/06/2020     15:18       2343 README.md
+-a---        02/06/2020     15:18        482 renovate.json
+-a---        02/06/2020     15:18       5476 ROADMAP.md
+-a---        02/06/2020     15:18         94 staticcheck.conf
+-a---        02/06/2020     15:18        282 tools.go
+
+
+PS D:\eks\terraform-provider-aws> cd .\examples
+
+PS D:\eks\terraform-provider-aws\examples> cd .\eks-getting-started
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> ls
+
+
+    Directory: D:\eks\terraform-provider-aws\examples\eks-getting-started
+
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+-a---        02/06/2020     15:18       2100 eks-cluster.tf
+-a---        02/06/2020     15:18       1638 eks-worker-nodes.tf
+-a---        02/06/2020     15:18       1090 outputs.tf
+-a---        02/06/2020     16:34        538 providers.tf
+-a---        02/06/2020     15:18        533 README.md
+-a---        02/06/2020     17:26        158 terraform.tfstate
+-a---        02/06/2020     17:10      25179 terraform.tfstate.backup
+-a---        02/06/2020     15:18        119 variables.tf
+-a---        02/06/2020     15:18       1128 vpc.tf
+-a---        02/06/2020     15:18        494 workstation-external-ip.tf
+
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "aws" (hashicorp/aws) 2.64.0...
+- Downloading plugin for provider "http" (hashicorp/http) 1.2.0...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.http: version = "~> 1.2"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started>
+
+
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> terraform plan
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+data.http.workstation-external-ip: Refreshing state...
+data.aws_availability_zones.available: Refreshing state...
+data.aws_region.current: Refreshing state...
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.demo will be created
+  + resource "aws_eks_cluster" "demo" {
+      + arn                   = (known after apply)
+      + certificate_authority = (known after apply)
+      + created_at            = (known after apply)
+      + endpoint              = (known after apply)
+      + id                    = (known after apply)
+      + identity              = (known after apply)
+      + name                  = "terraform-eks-demo"
+      + platform_version      = (known after apply)
+      + role_arn              = (known after apply)
+      + status                = (known after apply)
+      + version               = (known after apply)
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = false
+          + endpoint_public_access    = true
+          + public_access_cidrs       = (known after apply)
+          + security_group_ids        = (known after apply)
+          + subnet_ids                = (known after apply)
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+  # aws_eks_node_group.demo will be created
+  + resource "aws_eks_node_group" "demo" {
+      + ami_type        = (known after apply)
+      + arn             = (known after apply)
+      + cluster_name    = "terraform-eks-demo"
+      + disk_size       = (known after apply)
+      + id              = (known after apply)
+      + instance_types  = (known after apply)
+      + node_group_name = "demo"
+      + node_role_arn   = (known after apply)
+      + release_version = (known after apply)
+      + resources       = (known after apply)
+      + status          = (known after apply)
+      + subnet_ids      = (known after apply)
+      + version         = (known after apply)
+
+      + scaling_config {
+          + desired_size = 1
+          + max_size     = 1
+          + min_size     = 1
+        }
+    }
+
+  # aws_iam_role.demo-cluster will be created
+  + resource "aws_iam_role" "demo-cluster" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "terraform-eks-demo-cluster"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # aws_iam_role.demo-node will be created
+  + resource "aws_iam_role" "demo-node" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "terraform-eks-demo-node"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSClusterPolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+      + role       = "terraform-eks-demo-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSServicePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+      + role       = "terraform-eks-demo-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.demo-node-AmazonEC2ContainerRegistryReadOnly will be created
+  + resource "aws_iam_role_policy_attachment" "demo-node-AmazonEC2ContainerRegistryReadOnly" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "terraform-eks-demo-node"
+    }
+
+  # aws_iam_role_policy_attachment.demo-node-AmazonEKSWorkerNodePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-node-AmazonEKSWorkerNodePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      + role       = "terraform-eks-demo-node"
+    }
+
+  # aws_iam_role_policy_attachment.demo-node-AmazonEKS_CNI_Policy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-node-AmazonEKS_CNI_Policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+      + role       = "terraform-eks-demo-node"
+    }
+
+  # aws_internet_gateway.demo will be created
+  + resource "aws_internet_gateway" "demo" {
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "terraform-eks-demo"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_route_table.demo will be created
+  + resource "aws_route_table" "demo" {
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                = "0.0.0.0/0"
+              + egress_only_gateway_id    = ""
+              + gateway_id                = (known after apply)
+              + instance_id               = ""
+              + ipv6_cidr_block           = ""
+              + nat_gateway_id            = ""
+              + network_interface_id      = ""
+              + transit_gateway_id        = ""
+              + vpc_peering_connection_id = ""
+            },
+        ]
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.demo[0] will be created
+  + resource "aws_route_table_association" "demo" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.demo[1] will be created
+  + resource "aws_route_table_association" "demo" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.demo-cluster will be created
+  + resource "aws_security_group" "demo-cluster" {
+      + arn                    = (known after apply)
+      + description            = "Cluster communication with worker nodes"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "terraform-eks-demo-cluster"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "terraform-eks-demo"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group_rule.demo-cluster-ingress-workstation-https will be created
+  + resource "aws_security_group_rule" "demo-cluster-ingress-workstation-https" {
+      + cidr_blocks              = [
+          + "27.59.34.7/32",
+        ]
+      + description              = "Allow workstation to communicate with the cluster API Server"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # aws_subnet.demo[0] will be created
+  + resource "aws_subnet" "demo" {
+      + arn                             = (known after apply)
+      + assign_ipv6_address_on_creation = false
+      + availability_zone               = "us-east-1a"
+      + availability_zone_id            = (known after apply)
+      + cidr_block                      = "10.0.0.0/24"
+      + id                              = (known after apply)
+      + ipv6_cidr_block                 = (known after apply)
+      + ipv6_cidr_block_association_id  = (known after apply)
+      + map_public_ip_on_launch         = true
+      + owner_id                        = (known after apply)
+      + tags                            = {
+          + "Name"                                     = "terraform-eks-demo-node"
+          + "kubernetes.io/cluster/terraform-eks-demo" = "shared"
+        }
+      + vpc_id                          = (known after apply)
+    }
+
+  # aws_subnet.demo[1] will be created
+  + resource "aws_subnet" "demo" {
+      + arn                             = (known after apply)
+      + assign_ipv6_address_on_creation = false
+      + availability_zone               = "us-east-1b"
+      + availability_zone_id            = (known after apply)
+      + cidr_block                      = "10.0.1.0/24"
+      + id                              = (known after apply)
+      + ipv6_cidr_block                 = (known after apply)
+      + ipv6_cidr_block_association_id  = (known after apply)
+      + map_public_ip_on_launch         = true
+      + owner_id                        = (known after apply)
+      + tags                            = {
+          + "Name"                                     = "terraform-eks-demo-node"
+          + "kubernetes.io/cluster/terraform-eks-demo" = "shared"
+        }
+      + vpc_id                          = (known after apply)
+    }
+
+  # aws_vpc.demo will be created
+  + resource "aws_vpc" "demo" {
+      + arn                              = (known after apply)
+      + assign_generated_ipv6_cidr_block = false
+      + cidr_block                       = "10.0.0.0/16"
+      + default_network_acl_id           = (known after apply)
+      + default_route_table_id           = (known after apply)
+      + default_security_group_id        = (known after apply)
+      + dhcp_options_id                  = (known after apply)
+      + enable_classiclink               = (known after apply)
+      + enable_classiclink_dns_support   = (known after apply)
+      + enable_dns_hostnames             = (known after apply)
+      + enable_dns_support               = true
+      + id                               = (known after apply)
+      + instance_tenancy                 = "default"
+      + ipv6_association_id              = (known after apply)
+      + ipv6_cidr_block                  = (known after apply)
+      + main_route_table_id              = (known after apply)
+      + owner_id                         = (known after apply)
+      + tags                             = {
+          + "Name"                                     = "terraform-eks-demo-node"
+          + "kubernetes.io/cluster/terraform-eks-demo" = "shared"
+        }
+    }
+
+Plan: 18 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> terraform apply
+
+data.http.workstation-external-ip: Refreshing state...
+data.aws_region.current: Refreshing state...
+data.aws_availability_zones.available: Refreshing state...
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.demo will be created
+  + resource "aws_eks_cluster" "demo" {
+      + arn                   = (known after apply)
+      + certificate_authority = (known after apply)
+      + created_at            = (known after apply)
+      + endpoint              = (known after apply)
+      + id                    = (known after apply)
+      + identity              = (known after apply)
+      + name                  = "terraform-eks-demo"
+      + platform_version      = (known after apply)
+      + role_arn              = (known after apply)
+      + status                = (known after apply)
+      + version               = (known after apply)
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = false
+          + endpoint_public_access    = true
+          + public_access_cidrs       = (known after apply)
+          + security_group_ids        = (known after apply)
+          + subnet_ids                = (known after apply)
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+  # aws_eks_node_group.demo will be created
+  + resource "aws_eks_node_group" "demo" {
+      + ami_type        = (known after apply)
+      + arn             = (known after apply)
+      + cluster_name    = "terraform-eks-demo"
+      + disk_size       = (known after apply)
+      + id              = (known after apply)
+      + instance_types  = (known after apply)
+      + node_group_name = "demo"
+      + node_role_arn   = (known after apply)
+      + release_version = (known after apply)
+      + resources       = (known after apply)
+      + status          = (known after apply)
+      + subnet_ids      = (known after apply)
+      + version         = (known after apply)
+
+      + scaling_config {
+          + desired_size = 1
+          + max_size     = 1
+          + min_size     = 1
+        }
+    }
+
+  # aws_iam_role.demo-cluster will be created
+  + resource "aws_iam_role" "demo-cluster" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "terraform-eks-demo-cluster"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # aws_iam_role.demo-node will be created
+  + resource "aws_iam_role" "demo-node" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "terraform-eks-demo-node"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSClusterPolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+      + role       = "terraform-eks-demo-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSServicePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+      + role       = "terraform-eks-demo-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.demo-node-AmazonEC2ContainerRegistryReadOnly will be created
+  + resource "aws_iam_role_policy_attachment" "demo-node-AmazonEC2ContainerRegistryReadOnly" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "terraform-eks-demo-node"
+    }
+
+  # aws_iam_role_policy_attachment.demo-node-AmazonEKSWorkerNodePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-node-AmazonEKSWorkerNodePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      + role       = "terraform-eks-demo-node"
+    }
+
+  # aws_iam_role_policy_attachment.demo-node-AmazonEKS_CNI_Policy will be created
+  + resource "aws_iam_role_policy_attachment" "demo-node-AmazonEKS_CNI_Policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+      + role       = "terraform-eks-demo-node"
+    }
+
+  # aws_internet_gateway.demo will be created
+  + resource "aws_internet_gateway" "demo" {
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "terraform-eks-demo"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_route_table.demo will be created
+  + resource "aws_route_table" "demo" {
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                = "0.0.0.0/0"
+              + egress_only_gateway_id    = ""
+              + gateway_id                = (known after apply)
+              + instance_id               = ""
+              + ipv6_cidr_block           = ""
+              + nat_gateway_id            = ""
+              + network_interface_id      = ""
+              + transit_gateway_id        = ""
+              + vpc_peering_connection_id = ""
+            },
+        ]
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.demo[0] will be created
+  + resource "aws_route_table_association" "demo" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.demo[1] will be created
+  + resource "aws_route_table_association" "demo" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.demo-cluster will be created
+  + resource "aws_security_group" "demo-cluster" {
+      + arn                    = (known after apply)
+      + description            = "Cluster communication with worker nodes"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = ""
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "terraform-eks-demo-cluster"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "terraform-eks-demo"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group_rule.demo-cluster-ingress-workstation-https will be created
+  + resource "aws_security_group_rule" "demo-cluster-ingress-workstation-https" {
+      + cidr_blocks              = [
+          + "27.59.34.7/32",
+        ]
+      + description              = "Allow workstation to communicate with the cluster API Server"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # aws_subnet.demo[0] will be created
+  + resource "aws_subnet" "demo" {
+      + arn                             = (known after apply)
+      + assign_ipv6_address_on_creation = false
+      + availability_zone               = "us-east-1a"
+      + availability_zone_id            = (known after apply)
+      + cidr_block                      = "10.0.0.0/24"
+      + id                              = (known after apply)
+      + ipv6_cidr_block                 = (known after apply)
+      + ipv6_cidr_block_association_id  = (known after apply)
+      + map_public_ip_on_launch         = true
+      + owner_id                        = (known after apply)
+      + tags                            = {
+          + "Name"                                     = "terraform-eks-demo-node"
+          + "kubernetes.io/cluster/terraform-eks-demo" = "shared"
+        }
+      + vpc_id                          = (known after apply)
+    }
+
+  # aws_subnet.demo[1] will be created
+  + resource "aws_subnet" "demo" {
+      + arn                             = (known after apply)
+      + assign_ipv6_address_on_creation = false
+      + availability_zone               = "us-east-1b"
+      + availability_zone_id            = (known after apply)
+      + cidr_block                      = "10.0.1.0/24"
+      + id                              = (known after apply)
+      + ipv6_cidr_block                 = (known after apply)
+      + ipv6_cidr_block_association_id  = (known after apply)
+      + map_public_ip_on_launch         = true
+      + owner_id                        = (known after apply)
+      + tags                            = {
+          + "Name"                                     = "terraform-eks-demo-node"
+          + "kubernetes.io/cluster/terraform-eks-demo" = "shared"
+        }
+      + vpc_id                          = (known after apply)
+    }
+
+  # aws_vpc.demo will be created
+  + resource "aws_vpc" "demo" {
+      + arn                              = (known after apply)
+      + assign_generated_ipv6_cidr_block = false
+      + cidr_block                       = "10.0.0.0/16"
+      + default_network_acl_id           = (known after apply)
+      + default_route_table_id           = (known after apply)
+      + default_security_group_id        = (known after apply)
+      + dhcp_options_id                  = (known after apply)
+      + enable_classiclink               = (known after apply)
+      + enable_classiclink_dns_support   = (known after apply)
+      + enable_dns_hostnames             = (known after apply)
+      + enable_dns_support               = true
+      + id                               = (known after apply)
+      + instance_tenancy                 = "default"
+      + ipv6_association_id              = (known after apply)
+      + ipv6_cidr_block                  = (known after apply)
+      + main_route_table_id              = (known after apply)
+      + owner_id                         = (known after apply)
+      + tags                             = {
+          + "Name"                                     = "terraform-eks-demo-node"
+          + "kubernetes.io/cluster/terraform-eks-demo" = "shared"
+        }
+    }
+
+Plan: 18 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_iam_role.demo-cluster: Creating...
+aws_iam_role.demo-node: Creating...
+aws_vpc.demo: Creating...
+aws_iam_role.demo-node: Creation complete after 3s [id=terraform-eks-demo-node]
+aws_iam_role_policy_attachment.demo-node-AmazonEKSWorkerNodePolicy: Creating...
+aws_iam_role_policy_attachment.demo-node-AmazonEKS_CNI_Policy: Creating...
+aws_iam_role_policy_attachment.demo-node-AmazonEC2ContainerRegistryReadOnly: Creating...
+aws_iam_role.demo-cluster: Creation complete after 3s [id=terraform-eks-demo-cluster]
+aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy: Creating...
+aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy: Creating...
+aws_iam_role_policy_attachment.demo-node-AmazonEKS_CNI_Policy: Creation complete after 3s [id=terraform-eks-demo-node-20
+200603041408036700000001]
+aws_iam_role_policy_attachment.demo-node-AmazonEKSWorkerNodePolicy: Creation complete after 3s [id=terraform-eks-demo-no
+de-20200603041408039700000002]
+aws_iam_role_policy_attachment.demo-node-AmazonEC2ContainerRegistryReadOnly: Creation complete after 4s [id=terraform-ek
+s-demo-node-20200603041408065700000003]
+aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy: Creation complete after 4s [id=terraform-eks-demo-cl
+uster-20200603041408412000000005]
+aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy: Creation complete after 4s [id=terraform-eks-demo-cl
+uster-20200603041408394000000004]
+aws_vpc.demo: Still creating... [10s elapsed]
+aws_vpc.demo: Still creating... [20s elapsed]
+aws_vpc.demo: Creation complete after 22s [id=vpc-08c405b3b317eacf0]
+aws_internet_gateway.demo: Creating...
+aws_subnet.demo[0]: Creating...
+aws_subnet.demo[1]: Creating...
+aws_security_group.demo-cluster: Creating...
+aws_subnet.demo[1]: Creation complete after 7s [id=subnet-06721f1b608cbf86d]
+aws_subnet.demo[0]: Creation complete after 7s [id=subnet-00031d7544d08eb6d]
+aws_internet_gateway.demo: Creation complete after 9s [id=igw-062b0c1bf3bbe1250]
+aws_route_table.demo: Creating...
+aws_security_group.demo-cluster: Still creating... [10s elapsed]
+aws_security_group.demo-cluster: Creation complete after 12s [id=sg-0c678255266f85032]
+aws_security_group_rule.demo-cluster-ingress-workstation-https: Creating...
+aws_eks_cluster.demo: Creating...
+aws_route_table.demo: Creation complete after 6s [id=rtb-02bdbac67615c5084]
+aws_route_table_association.demo[0]: Creating...
+aws_route_table_association.demo[1]: Creating...
+aws_route_table_association.demo[1]: Creation complete after 1s [id=rtbassoc-00365dc5eab631745]
+aws_route_table_association.demo[0]: Creation complete after 1s [id=rtbassoc-0ea2bb8749203d98e]
+aws_security_group_rule.demo-cluster-ingress-workstation-https: Creation complete after 5s [id=sgrule-255984652]
+aws_eks_cluster.demo: Still creating... [10s elapsed]
+aws_eks_cluster.demo: Still creating... [20s elapsed]
+aws_eks_cluster.demo: Still creating... [30s elapsed]
+aws_eks_cluster.demo: Still creating... [40s elapsed]
+aws_eks_cluster.demo: Still creating... [50s elapsed]
+aws_eks_cluster.demo: Still creating... [1m0s elapsed]
+aws_eks_cluster.demo: Still creating... [1m10s elapsed]
+aws_eks_cluster.demo: Still creating... [1m20s elapsed]
+aws_eks_cluster.demo: Still creating... [1m30s elapsed]
+aws_eks_cluster.demo: Still creating... [1m40s elapsed]
+aws_eks_cluster.demo: Still creating... [1m50s elapsed]
+aws_eks_cluster.demo: Still creating... [2m0s elapsed]
+aws_eks_cluster.demo: Still creating... [2m10s elapsed]
+aws_eks_cluster.demo: Still creating... [2m20s elapsed]
+aws_eks_cluster.demo: Still creating... [2m30s elapsed]
+aws_eks_cluster.demo: Still creating... [2m40s elapsed]
+aws_eks_cluster.demo: Still creating... [2m50s elapsed]
+aws_eks_cluster.demo: Still creating... [3m0s elapsed]
+aws_eks_cluster.demo: Still creating... [3m10s elapsed]
+aws_eks_cluster.demo: Still creating... [3m20s elapsed]
+aws_eks_cluster.demo: Still creating... [3m30s elapsed]
+aws_eks_cluster.demo: Still creating... [3m40s elapsed]
+aws_eks_cluster.demo: Still creating... [3m50s elapsed]
+aws_eks_cluster.demo: Still creating... [4m0s elapsed]
+aws_eks_cluster.demo: Still creating... [4m10s elapsed]
+aws_eks_cluster.demo: Still creating... [4m20s elapsed]
+aws_eks_cluster.demo: Still creating... [4m30s elapsed]
+aws_eks_cluster.demo: Still creating... [4m40s elapsed]
+aws_eks_cluster.demo: Still creating... [4m50s elapsed]
+aws_eks_cluster.demo: Still creating... [5m0s elapsed]
+aws_eks_cluster.demo: Still creating... [5m10s elapsed]
+aws_eks_cluster.demo: Still creating... [5m20s elapsed]
+aws_eks_cluster.demo: Still creating... [5m30s elapsed]
+aws_eks_cluster.demo: Still creating... [5m40s elapsed]
+aws_eks_cluster.demo: Still creating... [5m50s elapsed]
+aws_eks_cluster.demo: Still creating... [6m0s elapsed]
+aws_eks_cluster.demo: Still creating... [6m10s elapsed]
+aws_eks_cluster.demo: Still creating... [6m20s elapsed]
+aws_eks_cluster.demo: Still creating... [6m30s elapsed]
+aws_eks_cluster.demo: Still creating... [6m40s elapsed]
+aws_eks_cluster.demo: Still creating... [6m50s elapsed]
+aws_eks_cluster.demo: Still creating... [7m0s elapsed]
+aws_eks_cluster.demo: Still creating... [7m10s elapsed]
+aws_eks_cluster.demo: Still creating... [7m20s elapsed]
+aws_eks_cluster.demo: Still creating... [7m30s elapsed]
+aws_eks_cluster.demo: Still creating... [7m40s elapsed]
+aws_eks_cluster.demo: Still creating... [7m50s elapsed]
+aws_eks_cluster.demo: Still creating... [8m0s elapsed]
+aws_eks_cluster.demo: Still creating... [8m10s elapsed]
+aws_eks_cluster.demo: Still creating... [8m20s elapsed]
+aws_eks_cluster.demo: Still creating... [8m30s elapsed]
+aws_eks_cluster.demo: Still creating... [8m40s elapsed]
+aws_eks_cluster.demo: Still creating... [8m50s elapsed]
+aws_eks_cluster.demo: Still creating... [9m0s elapsed]
+aws_eks_cluster.demo: Still creating... [9m10s elapsed]
+aws_eks_cluster.demo: Still creating... [9m20s elapsed]
+aws_eks_cluster.demo: Still creating... [9m30s elapsed]
+aws_eks_cluster.demo: Still creating... [9m40s elapsed]
+aws_eks_cluster.demo: Still creating... [9m50s elapsed]
+aws_eks_cluster.demo: Still creating... [10m0s elapsed]
+aws_eks_cluster.demo: Still creating... [10m10s elapsed]
+aws_eks_cluster.demo: Still creating... [10m20s elapsed]
+aws_eks_cluster.demo: Still creating... [10m30s elapsed]
+aws_eks_cluster.demo: Still creating... [10m40s elapsed]
+aws_eks_cluster.demo: Still creating... [10m50s elapsed]
+aws_eks_cluster.demo: Still creating... [11m0s elapsed]
+aws_eks_cluster.demo: Still creating... [11m10s elapsed]
+aws_eks_cluster.demo: Still creating... [11m20s elapsed]
+aws_eks_cluster.demo: Still creating... [11m30s elapsed]
+aws_eks_cluster.demo: Still creating... [11m40s elapsed]
+aws_eks_cluster.demo: Still creating... [11m50s elapsed]
+aws_eks_cluster.demo: Creation complete after 11m58s [id=terraform-eks-demo]
+aws_eks_node_group.demo: Creating...
+aws_eks_node_group.demo: Still creating... [10s elapsed]
+aws_eks_node_group.demo: Still creating... [20s elapsed]
+aws_eks_node_group.demo: Still creating... [30s elapsed]
+aws_eks_node_group.demo: Still creating... [40s elapsed]
+aws_eks_node_group.demo: Still creating... [50s elapsed]
+aws_eks_node_group.demo: Still creating... [1m0s elapsed]
+aws_eks_node_group.demo: Still creating... [1m10s elapsed]
+aws_eks_node_group.demo: Still creating... [1m20s elapsed]
+aws_eks_node_group.demo: Still creating... [1m30s elapsed]
+aws_eks_node_group.demo: Still creating... [1m40s elapsed]
+aws_eks_node_group.demo: Still creating... [1m50s elapsed]
+aws_eks_node_group.demo: Creation complete after 1m52s [id=terraform-eks-demo:demo]
+
+Apply complete! Resources: 18 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+config_map_aws_auth =
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::404396996630:role/terraform-eks-demo-node
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+
+kubeconfig =
+
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://004B1526CB43473FF599B0141A6BB928.gr7.us-east-1.eks.amazonaws.com
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFR
+c0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJd01EWXdNekEwTWpJek1Gb1hEVE13TURZd01UQTBNakl6TUZvd0ZURVRNQkVHQTFV
+RQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTmFrCjFVY3B1RXlwN1dSdlRKT01mZkswTEFm
+TXNKWmJxNitBT1hRUWsrMVlrS1NyQWxTelQ0cG5id3VmOXpaQ1Z3em8KNG9VWHlSQ2R0MHBvVGQ0T1ZJdlFRRm44VjZZZ1NuZisvM09nTkpoM21YZEFHZ0Zh
+WEcrVU1HUHB2Skx2WWlsVwpTUGF4RlBsZDNISjFudkxNS0xWaENTeFBzL1c1b1Vpcjhhd1VEdEZBS0lXZktTTXZISkdsN3RUdVpkNjJpc0IzCkwvNFluWHFn
+bm9hd0hjQnhvbTZTbmd4Y0lUOGZmUDMwTEhqb2FIZUt3dUpwSWlkai9EUnhRcFRWUFlhVnVVRGMKUWlDc0JwcUhZam9ETGkwUUFFZEpUTm5RaXdjaUIvSE1B
+SVFUUUo0ZzJ6dHl1dGdFSThQd2Z6QTBDdHJQcFNzSQp5Zkl5b0U5d1JpaGpHZDRZL2dNQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0Ex
+VWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFFcElNQXIrWnRzdUJWU245NFF5ZTlLNytSRTUKZzVsZTFvanVQYk5oSlNiOUpo
+L0ZwTzFjU2R2WVZhTkZaK2tJeUJ1Qm5WTndQNzVqaUxUczdqY21HcHR3YXlYegpjT1lhb1dQUVJ2bm1IbGxDNW9VZnd2RVVVclhiQTFiL0p3UVQxejJmTk9h
+aHhQSzR2SVBsMmhXMnAyZ1l0N2liCllYWWZlak05cjlZbllFN3hNK01vUE5saXZUSjBtbGMzSkhNaVkrSjM3Mmx3Tm12Sm80emExTXdkOWVmcSsvUEUKRk91
+WWIzN01GSHBtNnlFOWlyMGJjaEl4Y0dDVVB2QUJ3RFhEQzM4MUR4dVBQQWJUV0FFZG1ybnVlNkdOd29HbgpQNU0vQy9aQlB5NnlKNnJpRTc2TFcrYmxpMnN6
+bFptRnJwU0YwV2FacGR6WmMrbndZeDlid1BMRjRGZz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: aws
+  name: aws
+current-context: aws
+kind: Config
+preferences: {}
+users:
+- name: aws
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+        - "token"
+        - "-i"
+        - "terraform-eks-demo"
+
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> aws eks --region region update-kubeconfig --name cluster_
+
+name
+Traceback (most recent call last):
+  File "<frozen importlib._bootstrap_external>", line 1096, in _path_importer_cache
+KeyError: 'C:\\Program Files\\Amazon\\AWSCLI\\runtime\\lib\\site-packages\\jmespath'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen importlib._bootstrap_external>", line 1074, in _path_hooks
+zipimport.ZipImportError: not a Zip file
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Program Files\Amazon\AWSCLI\bin\aws-script.py", line 4, in <module>
+    from awscli.clidriver import main
+  File "C:\Program Files\Amazon\AWSCLI\runtime\lib\site-packages\awscli\clidriver.py", line 17, in <module>
+    import botocore.session
+  File "C:\Program Files\Amazon\AWSCLI\runtime\lib\site-packages\botocore\session.py", line 30, in <module>
+    import botocore.client
+  File "C:\Program Files\Amazon\AWSCLI\runtime\lib\site-packages\botocore\client.py", line 16, in <module>
+    from botocore import waiter, xform_name
+  File "C:\Program Files\Amazon\AWSCLI\runtime\lib\site-packages\botocore\waiter.py", line 13, in <module>
+    import jmespath
+  File "C:\Program Files\Amazon\AWSCLI\runtime\lib\site-packages\jmespath\__init__.py", line 3, in <module>
+    from jmespath import parser
+  File "<frozen importlib._bootstrap>", line 961, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 946, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 885, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1157, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1126, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1098, in _path_importer_cache
+  File "<frozen importlib._bootstrap_external>", line 1074, in _path_hooks
+KeyboardInterrupt
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> aws eks --region us-east-1 update-kubeconfig --name terra
+form-eks-demo
+Added new context arn:aws:eks:us-east-1:404396996630:cluster/terraform-eks-demo to C:\Users\USER\.kube\config
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> kubectl get pods
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> kubectl get pods --kubeconfig ./.kube/config
+error: CreateFile ./.kube/config: The system cannot find the path specified.
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> kubectl get pods --kubeconfig %USERPROFILE%\.kube\config
+error: CreateFile %USERPROFILE%\.kube\config: The system cannot find the path specified.
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> aws sts get-caller-identity
+{
+    "UserId": "AIDAV4J7QPALFTE57RFK5",
+    "Account": "404396996630",
+    "Arn": "arn:aws:iam::404396996630:user/eks-user"
+}
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   172.20.0.1   <none>        443/TCP   15m
+
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> kubectl get pods
+No resources found in default namespace.
+
+
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started> kubectl get nodes
+NAME                         STATUS   ROLES    AGE   VERSION
+ip-10-0-0-206.ec2.internal   Ready    <none>   11m   v1.16.8-eks-e16311
+
+PS D:\eks\terraform-provider-aws\examples\eks-getting-started>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
